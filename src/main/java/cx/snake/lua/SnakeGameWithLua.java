@@ -27,6 +27,9 @@ public class SnakeGameWithLua extends SnakeGame implements GameEventListener {
 
     private SnakeController currentSnakeController = null;
 
+    // lua environment
+    private Globals luaGlobals = JsePlatform.standardGlobals();
+
     @Override
     protected int getGameSpeed() {return 1;}
 
@@ -48,6 +51,7 @@ public class SnakeGameWithLua extends SnakeGame implements GameEventListener {
                     File script = scriptSelector.getSelectedFile();
 
                     try {
+                        luaGlobals.get("dofile").call(LuaValue.valueOf(script.getAbsolutePath()));
                         SnakeGameWindow newGame = createNewGame();
                         currentSnakeController = new SnakeController();
                         currentSnakeController.init(new Snake(10, Vector2d.Down, new Vector2d(10, 10)), newGame.getGameboard());
@@ -81,5 +85,16 @@ public class SnakeGameWithLua extends SnakeGame implements GameEventListener {
 
     @Override
     public void OnEvent(GameEvent event) {
+         // try to execute function with same name as event type
+        LuaValue luaCallable = luaGlobals.get(event.getType());
+        // exist in lua as a function
+        if (luaCallable.isfunction()) {
+            try {
+                LuaValue luaSnakeController = CoerceJavaToLua.coerce(currentSnakeController);
+                luaCallable.call(luaSnakeController);
+            } catch (Exception e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
+        }
     }
 }
