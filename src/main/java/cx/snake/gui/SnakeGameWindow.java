@@ -96,7 +96,7 @@ public class SnakeGameWindow extends JPanel implements ActionListener{
 
         for (Snake snake : gameboard.getSnakes()) {
             for (CollisionSegment segment: snake.getAllSegments()) {
-                drawCollisionSegment(Color.GREEN, graphics, segment);
+                drawCollisionSegment(snake.getColor(), graphics, segment);
             }
         }
 
@@ -125,10 +125,11 @@ public class SnakeGameWindow extends JPanel implements ActionListener{
     }
 
     private void drawFood(Graphics graphics) {
-        graphics.setColor(Color.YELLOW);
-        int x = (int)gameboard.getFood().getPos().getX();
-        int y = (int)gameboard.getFood().getPos().getY();
-        int size = gameboard.getFood().getSize();
+        Food food = gameboard.getFood();
+        graphics.setColor(food.getColor());
+        int x = (int)food.getPos().getX();
+        int y = (int)food.getPos().getY();
+        int size = food.getSize();
         graphics.fillRect(x, y, size, size);
     }
 }

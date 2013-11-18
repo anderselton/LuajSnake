@@ -2,6 +2,8 @@ package cx.snake.game;
 
 import cx.snake.util.Vector2d;
 
+import java.awt.*;
+
 /**
  * Food is a quadratic piece, that when collided with, will cause a snake to grow.
  * It can only be consumed once.
@@ -10,6 +12,16 @@ public class Food extends GameObject {
     private int size;
     Vector2d pos;
     boolean isConsumed = false;
+
+    Color snakeColor = Color.YELLOW;
+
+    public Color getColor() {
+        return snakeColor;
+    }
+
+    public void setColor(Color c) {
+        snakeColor = c;
+    }
 
     public Food(int size, Vector2d pos) {
         this.size = size;

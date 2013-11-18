@@ -68,6 +68,7 @@ public class Gameboard extends GameObject {
             if (food != null && !food.isConsumed() && food.isColliding(snake.getHeadPos())) {
                 snake.eat(food);
                 snake.sendEvent(new GameEvent(snake, "EatFood"));
+                sendEvent(new GameEvent(this, "EatFood"));
             }
         }
 
