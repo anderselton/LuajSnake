@@ -30,6 +30,14 @@ public class SnakeGameWithLua extends SnakeGame implements GameEventListener {
     @Override
     protected int getGameSpeed() {return 1;}
 
+    public Snake createSnake(int x, int y, Vector2d dir) {
+        return new Snake(10, dir, new Vector2d(x, y));
+    }
+
+    public SnakeController createSnakeController() {
+        return new SnakeController();
+    }
+
     @Override
     protected void createMenu(JPanel menuPanel) {
         JButton startLuaGame = new JButton("Lua Game");
@@ -49,8 +57,8 @@ public class SnakeGameWithLua extends SnakeGame implements GameEventListener {
 
                     try {
                         SnakeGameWindow newGame = createNewGame();
-                        currentSnakeController = new SnakeController();
-                        currentSnakeController.init(new Snake(10, Vector2d.Down, new Vector2d(10, 10)), newGame.getGameboard());
+                        currentSnakeController = createSnakeController();
+                        currentSnakeController.init(createSnake(10,10,Vector2d.Down), newGame.getGameboard());
                         newGame.addSnakeController(currentSnakeController);
                         currentSnakeController.getSnake().addEventListener(self);
                         newGame.start();
