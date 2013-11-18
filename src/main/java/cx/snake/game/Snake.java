@@ -2,6 +2,7 @@ package cx.snake.game;
 
 import cx.snake.util.Vector2d;
 
+import java.awt.*;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -16,6 +17,15 @@ public class Snake extends GameObject {
     private double growSize  = 0;
     private boolean isDead = false;
     private String name = "Snake";
+    Color snakeColor = Color.GREEN;
+
+    public Color getColor() {
+        return snakeColor;
+    }
+
+    public void setColor(Color c) {
+        snakeColor = c;
+    }
 
     public String getName() {
         return name;
