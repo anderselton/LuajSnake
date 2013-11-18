@@ -36,7 +36,7 @@ public class SnakeGame {
         snakeGameWindow = new SnakeGameWindow(getGameSpeed());
         mainPanel.add(snakeGameWindow);
         mainFrame.repaint();
-        mainFrame.revalidate();
+        mainPanel.revalidate();
         snakeGameWindow.setVisible(true);
         return snakeGameWindow;
     }
